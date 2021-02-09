@@ -1,24 +1,27 @@
-# README
+# Stocks - микросервис работы складов
+Для корректной работы сервиса необходимо выполнить загрузку демо-данных (/load_demo или нажать на кнопку Load Demo на главной странице)
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+На главной странице фронтенда приложения находится базовый интерфейс, где отображена след информация:
+ - Все склады, их товары и цена / количество продукта на конкретном складе
+ - Общая стоимость продуктов на каждом складе, сумма реализованного товара на каждом складе
+ - Все операции на складе (приход / уход)
+ - Кнопки функционала
 
-Things you may want to cover:
+## Основной функционал
+| Функционал | Контроллер | Роут | Описание |
+| ------ | ------ | ------ | ------ |
+| Load Demo | load_demo | /load_demo | Загрузка демо-данных (Склады, Продукты, Операции) |
+| Приемка продукта | add_product + create_product | /add_product | Добавление введеннго количества продукта на выбранных склад |
+| Перенести продукт | add_transfer + create_transfer | /add_transfer | Перенос выбранного продукта с выбранного склада на другой выбранный склад |
+| Реализацовать продукт | add_order + create_order | /add_order | Реализация введенного количества выбранного продукта с выбранного склада |
+| Destroy All | destroy_all | /destroy_all | Очистить все данные в БД (Склады, Продукты, Операции) |
 
-* Ruby version
+Версии ПО:
 
-* System dependencies
+* ruby 2.7.2p137 (2020-10-01 revision 5445e04352) [x86_64-darwin20]
 
-* Configuration
+* Rails 6.1.1
 
-* Database creation
+* Node v14.15.4
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+* Yarn 1.22.10

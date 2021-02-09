@@ -1,0 +1,20 @@
+<div>
+  <h1>Приемка продукта</h1>
+
+  <%= form_with url:add_product_path, model: @operations do |form| %>
+    <div>
+      <%= form.label "Продукт" %>: <%= form.select :product_id, Product.pluck(:name, :id) %><br>
+      <%= form.label "Склад" %>: <%= form.select :stock_id, Stock.pluck(:name, :id) %><br>
+      <%= form.label "Кол-во" %>: <%= form.text_field :quantity %><br>
+      <%= form.hidden_field :operation_type, value: "coming" %>
+      <%= form.hidden_field :description, value: "Приемка продукта" %>
+
+    </div>
+
+    <div>
+      <%= form.submit "Принять продукт" %>
+    </div>
+  <% end %>
+</div>
+<hr>
+<small><a href="/">home</a></small>

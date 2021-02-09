@@ -1,0 +1,40 @@
+<h4>Склады</h4>
+<ul>
+  <% @stocks.each do |stock| %>
+    <li>
+      Продукты на складе <b><%= stock.name %></b>,
+      <% arr_sum = Operation.joins(:product, :stock).where(stock: {id: stock.id}).pluck(:price, :quantity) %>
+      <% arr_sold = Operation.joins(:product, :stock).where(description: "Реализация продукта", stock: {id: stock.id}).pluck(:price, :quantity) %>
+      Общая стоимость продуктов: <% @arr_sum = []; arr_sum.each { |x| @arr_sum << x.reduce(:*) } %> <span style="color: #830000;"><%= @arr_sum.reduce(:+) %></span>,
+      <% @arr_sold = []; arr_sold.each { |x| @arr_sold << x.reduce(:*) } %> <%= "Сумма реализованного товара:" if @arr_sold.length > 0 %> <span style="color: #58a501;"><%= @arr_sold.reduce(:+) %></span>
+    </li>
+<br>
+    <ul>
+      <% @products.each do |product| %>
+        <li>
+          <%= product.name %> - <%= product.price %> руб. - <%= Operation.all.where(stock_id: stock.id, product_id: product.id, operation_type: "coming").sum(:quantity) - Operation.all.where(stock_id: stock.id, product_id: product.id, operation_type: "leaving").sum(:quantity) %> шт - <%= product.price * (Operation.all.where(stock_id: stock.id, product_id: product.id, operation_type: "coming").sum(:quantity) - Operation.all.where(stock_id: stock.id, product_id: product.id, operation_type: "leaving").sum(:quantity)) %>
+        </li>
+      <% end %>
+    </ul>
+    <br>
+  <% end %>
+</ul>
+
+<h4>Все операции на складе (приход / уход)</h4>
+<ul>
+  <% @operations.each do |operation| %>
+    <li>
+      <%= operation.id %> <%= Operation.all.where(id: operation.id).each { |op| op.id } %>
+    </li>
+  <% end %>
+</ul>
+<hr>
+<a href="<%= add_product_path %>">Приемка продукта</a>
+<br>
+<a href="<%= add_transfer_path %>">Перенести продукт</a>
+<br>
+<a href="<%= add_order_path %>">Реализовать продукт</a>
+<hr>
+<a href="<%= load_demo_path %>">Load Demo</a>
+<br>
+<a href="<%= destroy_all_path %>">Destroy All</a>

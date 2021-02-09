@@ -1,0 +1,18 @@
+<div>
+  <h1>Перенос продукта со склада на склад</h1>
+
+  <%= form_with url:add_transfer_path, model: @operations do |form| %>
+    <div>
+      <%= form.label "Продукт" %>: <%= form.select :product_id, Product.pluck(:name, :id) %><br>
+      <%= form.label "Откуда перенести (Склад)" %>: <%= form.select :stock_id, Stock.pluck(:name, :id) %><br>
+      <%= form.label "Кол-во" %>: <%= form.text_field :quantity %><br>
+      <%= form.label "Куда перенести (Склад)" %>: <%= form.select :transfer_to_stock_id, Stock.pluck(:name, :id) %><br>
+    </div>
+
+    <div>
+      <%= form.submit "Перенести" %>
+    </div>
+  <% end %>
+</div>
+<hr>
+<small><a href="/">home</a></small>
